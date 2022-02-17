@@ -13,7 +13,6 @@ interface Props {
 }
 
 const Profile = () => {
-  const [data, setData] = useState<any>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -31,14 +30,6 @@ const Profile = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    const data1 = localStorage.getItem("my-data");
-    if (data1) {
-      setData(JSON.parse(data1));
-    }
-  });
 
   useEffect(() => {
     const data = localStorage.getItem("my_user_information");
@@ -64,15 +55,6 @@ const Profile = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const total = data?.length!;
-  const toDos = (
-    (data?.filter((item: any) => item.completed === false).length / total) *
-    100
-  ).toFixed(2);
-  const comp = (
-    (data?.filter((item: any) => item.completed === true).length / total) *
-    100
-  ).toFixed(2);
 
   return (
     <div className={classes.content}>
@@ -110,33 +92,6 @@ const Profile = () => {
         <p>Age: {user.age} years old</p>
         <p>Profession: {user.profession}</p>
       </div>
-      <div className={classes.progress}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <p style={{ color: "lightgreen", fontSize: "1.5rem" }}>Completed</p>
-          <Progress
-            type="circle"
-            strokeColor={{
-              "0%": "#108ee9",
-              "100%": "#87d068",
-            }}
-            format={() => <span style={{ color: "white" }}>{comp}%</span>}
-            percent={parseInt(comp)}
-          />
-        </div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <p style={{ color: "red", fontSize: "1.5rem" }}>To go</p>
-          <Progress
-            type="circle"
-            strokeColor={{
-              "0%": "#D07878",
-              "100%": "#FF0000",
-            }}
-            format={() => <span style={{ color: "white" }}>{toDos}%</span>}
-            percent={parseInt(toDos)}
-          />
-        </div>
-      </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
     </div>
   );
 };

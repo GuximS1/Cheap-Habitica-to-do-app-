@@ -7,18 +7,6 @@ import { useStore } from "../database/UserInformation";
 
 const ToDoCard = () => {
   const { toggleCompletedState, todos, setTodos } = useStore();
-  useEffect(() => {
-    const data1 = localStorage.getItem("my-data");
-    if (data1) {
-      setTodos(JSON.parse(data1));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("my-data", JSON.stringify(todos));
-    console.log("1");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [todos]);
 
   function toDoCompleted(id: string) {
     toggleCompletedState(id);
